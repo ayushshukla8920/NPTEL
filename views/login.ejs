@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NPTEL Exam Portal Login</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2c3e50;
+      --secondary-color: #3498db;
+      --background-color: #f4f4f4;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: var(--background-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .login-container {
+      background-color: white;
+      border-radius: 10px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      width: 100%;
+      max-width: 400px;
+      padding: 30px;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .login-container:hover {
+      transform: scale(1.02);
+    }
+
+    .logo {
+      margin-bottom: 20px;
+    }
+
+    .logo img {
+      max-width: 200px;
+      margin-bottom: 15px;
+    }
+
+    .login-title {
+      color: var(--primary-color);
+      margin-bottom: 20px;
+      font-size: 1.8rem;
+    }
+
+    .input-group {
+      position: relative;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--secondary-color);
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 12px 12px 12px 40px;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--secondary-color);
+      box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 12px;
+      background-color: var(--secondary-color);
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+
+    .login-btn:hover {
+      background-color: #2980b9;
+    }
+
+    .error {
+      color: #e74c3c;
+      margin-top: 15px;
+      font-size: 0.9rem;
+      animation: shake 0.5s;
+    }
+
+    .input-note {
+      color: red;
+      font-size: 0.8rem;
+      margin-top: 5px;
+      text-align: left;
+      padding-left: 10px;
+      margin-bottom: 20px;
+    }
+
+    input-note2 {
+      color: black;
+      background: yellow;
+      font-weight: bolder;
+    }
+
+    @keyframes shake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      10%,
+      30%,
+      50%,
+      70%,
+      90% {
+        transform: translateX(-5px);
+      }
+
+      20%,
+      40%,
+      60%,
+      80% {
+        transform: translateX(5px);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .login-container {
+        width: 90%;
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="login-container">
+    <div class="logo">
+      <img src="https://internalapp.nptel.ac.in/B2C/exam_form/images/logo.png" alt="NPTEL Logo">
+      <h2 class="login-title">Jan-Apr 2025 Exam Portal</h2>
+    </div>
+    <form onsubmit="return showError()" action="" method="post">
+      <div class="input-group">
+        <i class="fas fa-envelope"></i>
+        <input type="email" name="emailid" class="form-control" placeholder="Email ID" required>
+      </div>
+      <p class="input-note">Note: Please enter your exam registered email ID</p>
+
+      <div class="input-group">
+        <i class="fas fa-lock"></i>
+        <input type="password" name="password" class="form-control" placeholder="Password (Format: YYYY-MM-DD)"
+          required>
+      </div>
+      <p class="input-note">Note: Password format should be YYYY-MM-DD<br><strong>(Please enter password with the
+          hyphen(-) symbol)</strong></p>
+      <p class="input-note2" style="color: black;background: yellow;font-weight: bolder;">Note: Please check your
+        DOB submitted in your exam registration form - <strong><a
+            href="https://examform.nptel.ac.in/2025_01/exam_form/profile" target="_blank" style="color: blue;">Click
+            here!</a></strong></p>
+      <br>
+      <button type="submit" class="login-btn">
+        <i class="fas fa-sign-in-alt"></i> Login
+      </button>
+    </form>
+  </div>
+  <script>
+    function showError() {
+      alert("Something went wrong");
+      return false;
+    }
+  </script>
+
+</body>
+
+</html>
