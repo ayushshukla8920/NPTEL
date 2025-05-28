@@ -4,9 +4,10 @@ const app = express();
 const PORT = 3000;
 
 // Middleware to serve static files
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, 'Assets')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.render('index');
@@ -14,6 +15,21 @@ app.get('/', (req, res) => {
 
 app.get('/B2C', (req, res) => {
   res.render('login');
+});
+
+app.get('/login', (req, res) => {
+  res.render('main');
+});
+
+app.post('/verify', (req, res) => {
+  const { username, password } = req.body;
+  
+  if (username === 'admin' && password === '1234') {
+    console.log("Verfied");
+    res.json({ token: 'NPTEL25CS11S143730137304229892' });
+  } else {
+    res.status(401).send('Unauthorized');
+  }
 });
 
 app.get('/NOC/NOC25/SEM1/Ecertificates/106/noc25-cs11/Course/:filename', (req, res) => {

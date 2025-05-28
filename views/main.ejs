@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>NPTEL</title>
+  <meta property="og:title" content="NPTEL" />
+  <meta property="og:site_name" content="NPTEL" />
+  <meta property="og:description" content="Access NPTEL courses and content." />
+  <meta property="og:url" content="https://s3cloud.online" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 40px;
+    }
+    .hidden {
+      display: none !important;
+    }
+    .container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .left {
+      flex: 1;
+      padding-right: 20px;
+    }
+    .right {
+      flex: 1;
+      text-align: right;
+    }
+    img {
+      max-height: 150px;
+      max-width: 100%;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+    .title {
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Login</h1>
+
+  <!-- Login Form -->
+  <form id="loginForm">
+    <input type="text" id="username" placeholder="Username" required><br><br>
+    <input type="password" id="password" placeholder="Password" required><br><br>
+    <button type="submit">Login</button>
+  </form>
+
+  <!-- POST-LOGIN UI (completely hidden initially) -->
+  <div id="result" class="container hidden" style="display: none;">
+    
+    <!-- Row 1: Name and Token | Photo -->
+    <div class="row">
+      <div class="left">
+        <p class="title">Name:</p>
+        <p id="nameDisplay"></p>
+        <p class="title">Token:</p>
+        <p id="tokenDisplay"></p>
+      </div>
+      <div class="right">
+        <img id="tokenImage" src="" alt="User Photo">
+      </div>
+    </div>
+
+    <!-- Row 2: QRCODE | QR Image -->
+    <div class="row">
+      <div class="left">
+        <p class="title">QRCODE:</p>
+      </div>
+      <div class="right">
+        <img src="/assets/qr_placeholder.png" alt="QR Code">
+      </div>
+    </div>
+
+    <!-- Row 3: Hall Ticket | Download Button -->
+    <div class="row">
+      <div class="left">
+        <p class="title">Hall Ticket:</p>
+      </div>
+      <div class="right">
+        <a href="/assets/download.pdf" download>
+          <button>Download</button>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const result = document.getElementById('result');
+    const tokenDisplay = document.getElementById('tokenDisplay');
+    const nameDisplay = document.getElementById('nameDisplay');
+    const tokenImage = document.getElementById('tokenImage');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+
+      const res = await fetch('/verify', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+
+        // Fill in the UI
+        nameDisplay.textContent = username;
+        tokenDisplay.textContent = data.token;
+        tokenImage.src = `/assets/${data.token}.png`;
+
+        // Show result, hide form
+        result.classList.remove('hidden');
+        form.classList.add('hidden');
+      } else {
+        alert('Invalid credentials');
+      }
+    });
+  </script>
+</body>
+</html>
