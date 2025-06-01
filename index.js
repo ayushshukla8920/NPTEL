@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const PORT = 3000;
+const users = require('./public/users.json');
 
 // Middleware to serve static files
 app.use(express.static(path.join(__dirname, 'Assets')));
@@ -23,10 +24,11 @@ app.get('/login', (req, res) => {
 
 app.post('/verify', (req, res) => {
   const { username, password } = req.body;
-  
-  if (username === 'admin' && password === '1234') {
-    console.log("Verfied");
-    res.json({ token: 'NPTEL25CS11S143730137304229892' });
+  console.log(username);
+  const user = users.find(u => u.username === username && u.password === password);
+  if (user) {
+    console.log("Verified");
+    res.json({ token: user.token, name: user.name });
   } else {
     res.status(401).send('Unauthorized');
   }
