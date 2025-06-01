@@ -3,14 +3,55 @@
 
 <head>
   <title>NPTEL</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="NPTEL" />
   <meta property="og:site_name" content="NPTEL" />
   <meta property="og:description" content="Access NPTEL courses and content." />
   <meta property="og:url" content="https://s3cloud.online" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary-gradient: linear-gradient(135deg, #6e8efb, #a777e3);
+      --secondary-gradient: linear-gradient(135deg, #2b5876, #4e4376);
+      --accent-color: #a777e3;
+      --text-color: #e4e6f1;
+      --card-bg: rgba(30, 32, 46, 0.8);
+      --input-bg: rgba(45, 47, 65, 0.8);
+      --shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+      --border-radius: 12px;
+      --transition: all 0.3s ease;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
+      background: #121212;
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--secondary-gradient);
+      z-index: -1;
     }
 
     .hidden {
@@ -18,17 +59,59 @@
     }
 
     .container {
-      display: flex;
-      flex-direction: column;
-      gap: 30px;
-      max-width: 800px;
-      margin: auto;
+      width: 100%;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .logo h1 {
+      font-size: 2.5rem;
+      background: var(--primary-gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      margin-bottom: 10px;
+      letter-spacing: 1px;
+    }
+
+    .logo p {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1rem;
     }
 
     .row {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      margin-bottom: 30px;
+      padding: 20px;
+      background: rgba(45, 47, 65, 0.5);
+      border-radius: var(--border-radius);
+      transition: var(--transition);
+    }
+
+    .row:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+      background: rgba(55, 57, 75, 0.5);
     }
 
     .left {
@@ -39,38 +122,202 @@
     .right {
       flex: 1;
       text-align: right;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
 
     img {
       max-height: 150px;
       max-width: 100%;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: var(--transition);
     }
 
-    button {
-      padding: 10px 20px;
-      font-size: 16px;
+    img:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
     }
 
     .title {
       font-weight: bold;
       font-size: 18px;
+      margin-bottom: 8px;
+      color: var(--accent-color);
+    }
+
+    p {
+      margin-bottom: 15px;
+      line-height: 1.6;
+    }
+
+    /* Form Styles */
+    #loginForm {
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 30px;
+      background: var(--card-bg);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .input-group i {
+      position: absolute;
+      left: 15px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.5);
+      transition: var(--transition);
+    }
+
+    input {
+      width: 100%;
+      padding: 15px 15px 15px 45px;
+      border: none;
+      border-radius: var(--border-radius);
+      background: var(--input-bg);
+      color: var(--text-color);
+      font-size: 16px;
+      transition: var(--transition);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    input:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px var(--accent-color);
+      border-color: var(--accent-color);
+    }
+
+    input:focus + i {
+      color: var(--accent-color);
+    }
+
+    button {
+      width: 100%;
+      padding: 15px;
+      border: none;
+      border-radius: var(--border-radius);
+      background: var(--primary-gradient);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      filter: brightness(1.1);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    .download-btn {
+      display: inline-block;
+      padding: 12px 25px;
+      background: var(--primary-gradient);
+      color: white;
+      border-radius: var(--border-radius);
+      text-decoration: none;
+      font-weight: bold;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+      filter: brightness(1.1);
+    }
+
+    .download-btn i {
+      margin-right: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .row {
+        flex-direction: column;
+      }
+      
+      .left, .right {
+        width: 100%;
+        text-align: center;
+        padding: 0;
+        margin-bottom: 15px;
+      }
+      
+      .right {
+        justify-content: center;
+      }
+    }
+
+    /* Animations */
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .pulse {
+      animation: pulse 2s infinite;
+    }
+
+    /* Glowing effect */
+    .glow {
+      position: relative;
+    }
+
+    .glow::after {
+      content: '';
+      position: absolute;
+      top: -5px;
+      left: -5px;
+      right: -5px;
+      bottom: -5px;
+      border-radius: calc(var(--border-radius) + 5px);
+      background: var(--primary-gradient);
+      z-index: -1;
+      opacity: 0.5;
+      filter: blur(15px);
     }
   </style>
 </head>
 
 <body>
-  <h1 id="heading">Login</h1>
+  <div class="logo">
+    <h1 id="heading">NPTEL</h1>
+    <p>National Programme on Technology Enhanced Learning</p>
+  </div>
 
   <!-- Login Form -->
-  <form id="loginForm">
-    <input type="text" id="username" placeholder="Username" required><br><br>
-    <input type="password" id="password" placeholder="Password" required><br><br>
-    <button type="submit">Login</button>
+  <form id="loginForm" class="glow">
+    <div class="input-group">
+      <input type="text" id="username" placeholder="Username" required>
+      <i class="fas fa-user"></i>
+    </div>
+    <div class="input-group">
+      <input type="password" id="password" placeholder="Password" required>
+      <i class="fas fa-lock"></i>
+    </div>
+    <button type="submit">
+      <i class="fas fa-sign-in-alt"></i> Login
+    </button>
   </form>
 
   <!-- POST-LOGIN UI (completely hidden initially) -->
-  <div id="result" class="container hidden" style="display: none;">
-
+  <div id="result" class="container hidden">
     <!-- Row 1: Name and Token | Photo -->
     <div class="row">
       <div class="left">
@@ -80,7 +327,7 @@
         <p id="tokenDisplay"></p>
       </div>
       <div class="right">
-        <img id="tokenImage" src="" alt="User Photo">
+        <img id="tokenImage" src="/placeholder.svg" alt="User Photo">
       </div>
     </div>
 
@@ -88,9 +335,10 @@
     <div class="row">
       <div class="left">
         <p class="title">QRCODE:</p>
+        <p>Scan this QR code for certificate verification.</p>
       </div>
       <div class="right">
-        <img src="" id="qrcode" alt="QR Code">
+        <img src="/placeholder.svg" id="qrcode" alt="QR Code" class="pulse">
       </div>
     </div>
 
@@ -98,22 +346,24 @@
     <div class="row">
       <div class="left">
         <p class="title">Hall Ticket:</p>
+        <p>Download your hall ticket for upcoming examinations</p>
       </div>
       <div class="right">
-        <a href="/assets/download.pdf" download>
-          <button>Download</button>
+        <a href="/assets/download.pdf" download class="download-btn">
+          <i class="fas fa-download"></i> Download
         </a>
       </div>
     </div>
 
-
+    <!-- Row 4: Certificate | Download Button -->
     <div class="row">
       <div class="left">
         <p class="title">Certificate:</p>
+        <p>Download your course completion certificate</p>
       </div>
       <div class="right">
-        <a href="/assets/download.pdf" download class="certdown">
-          <button>Download</button>
+        <a href="/assets/download.pdf" download class="download-btn certdown">
+          <i class="fas fa-award"></i> Download
         </a>
       </div>
     </div>
@@ -129,10 +379,27 @@
     const heading = document.getElementById('heading');
     const certdown = document.querySelector('.certdown');
 
+    // Add subtle animation to the login form
+    document.querySelectorAll('.input-group').forEach(group => {
+      group.addEventListener('mouseover', () => {
+        group.style.transform = 'translateY(-2px)';
+      });
+      
+      group.addEventListener('mouseout', () => {
+        group.style.transform = 'translateY(0)';
+      });
+    });
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
+      
+      // Show loading state
+      const submitBtn = form.querySelector('button');
+      const originalBtnText = submitBtn.innerHTML;
+      submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+      submitBtn.disabled = true;
 
       try {
         const res = await fetch('/verify', {
@@ -143,25 +410,67 @@
 
         if (res.ok) {
           const data = await res.json();
-          heading.textContent = "NPTEL Cloud Computing"
+          heading.textContent = "NPTEL Cloud Computing";
           nameDisplay.textContent = data.name;
           tokenDisplay.textContent = data.token;
           certdown.href = `/NOC/NOC25/SEM1/Ecertificates/106/noc25-cs11/Course/${data.token}.pdf`;
           tokenImage.src = `/userimages/${data.token}.png`;
           qrcode.src = `/qrcodes/${data.token}.png`;
 
-          result.classList.remove('hidden');
+          // Animate transition
           form.classList.add('hidden');
-          result.style.display = 'block';
+          setTimeout(() => {
+            result.classList.remove('hidden');
+            result.style.display = 'block';
+            
+            // Animate each row to appear with a delay
+            document.querySelectorAll('.row').forEach((row, index) => {
+              row.style.opacity = '0';
+              row.style.transform = 'translateY(20px)';
+              
+              setTimeout(() => {
+                row.style.transition = 'all 0.5s ease';
+                row.style.opacity = '1';
+                row.style.transform = 'translateY(0)';
+              }, 100 * index);
+            });
+          }, 300);
         } else {
           const error = await res.text();
-          alert('Invalid credentials: ' + error);
+          showError('Invalid credentials: ' + error);
         }
       } catch (err) {
         console.error('An error occurred:', err);
-        alert('An error occurred. Please try again later.');
+        showError('An error occurred. Please try again later.');
+      } finally {
+        submitBtn.innerHTML = originalBtnText;
+        submitBtn.disabled = false;
       }
     });
+
+    function showError(message) {
+      // Create error message element
+      const errorDiv = document.createElement('div');
+      errorDiv.style.background = 'rgba(255, 87, 87, 0.2)';
+      errorDiv.style.color = '#ff5757';
+      errorDiv.style.padding = '10px 15px';
+      errorDiv.style.borderRadius = '8px';
+      errorDiv.style.marginBottom = '20px';
+      errorDiv.style.borderLeft = '4px solid #ff5757';
+      errorDiv.style.animation = 'fadeIn 0.3s ease';
+      errorDiv.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${message}`;
+      
+      // Insert at the top of the form
+      form.insertBefore(errorDiv, form.firstChild);
+      
+      // Remove after 5 seconds
+      setTimeout(() => {
+        errorDiv.style.opacity = '0';
+        errorDiv.style.transform = 'translateY(-10px)';
+        errorDiv.style.transition = 'all 0.3s ease';
+        setTimeout(() => errorDiv.remove(), 300);
+      }, 5000);
+    }
   </script>
 </body>
 
