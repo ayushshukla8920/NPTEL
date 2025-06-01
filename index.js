@@ -24,10 +24,8 @@ app.get('/login', (req, res) => {
 
 app.post('/verify', (req, res) => {
   const { username, password } = req.body;
-  console.log(username);
   const user = users.find(u => u.username === username && u.password === password);
   if (user) {
-    console.log("Verified");
     res.json({ token: user.token, name: user.name });
   } else {
     res.status(401).send('Unauthorized');
@@ -37,6 +35,17 @@ app.post('/verify', (req, res) => {
 app.get('/NOC/NOC25/SEM1/Ecertificates/106/noc25-cs11/Course/:filename', (req, res) => {
   const filename = req.params.filename;
   const filePath = path.join(__dirname, 'public', filename);
+  res.sendFile(filePath, err => {
+    if (err) {
+      res.status(404).send('File not found');
+    }
+  });
+});
+
+app.get('/NOC/NOC25/HALLTICKET/:filename', (req, res) => {
+  const file = req.params.filename;
+  const filename = "NOC"+file.slice(5)+'.pdf';
+  const filePath = path.join(__dirname, 'Assets', 'hallticket', filename);
   res.sendFile(filePath, err => {
     if (err) {
       res.status(404).send('File not found');

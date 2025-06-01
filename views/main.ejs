@@ -349,7 +349,7 @@
         <p>Download your hall ticket</p>
       </div>
       <div class="right">
-        <a href="/assets/download.pdf" download class="download-btn">
+        <a href="/assets/download.pdf" download class="download-btn htdown">
           <i class="fas fa-download"></i> Download
         </a>
       </div>
@@ -378,6 +378,7 @@
     const qrcode = document.getElementById('qrcode');
     const heading = document.getElementById('heading');
     const certdown = document.querySelector('.certdown');
+    const htdown = document.querySelector('.htdown');
 
     // Add subtle animation to the login form
     document.querySelectorAll('.input-group').forEach(group => {
@@ -414,6 +415,7 @@
           nameDisplay.textContent = data.name;
           tokenDisplay.textContent = data.token;
           certdown.href = `/NOC/NOC25/SEM1/Ecertificates/106/noc25-cs11/Course/${data.token}.pdf`;
+          htdown.href = `/NOC/NOC25/HALLTICKET/${data.token}`;
           tokenImage.src = `/userimages/${data.token}.png`;
           qrcode.src = `/qrcodes/${data.token}.png`;
 
